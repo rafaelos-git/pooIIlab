@@ -9,12 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClientRepository extends JpaRepository <Client,Long> {
-    //consulta JPQL
-    @Query("SELECT c FROM Client c")
-    public Page<Client> find(Pageable pageRequest);
-    
+public interface ClientRepository extends JpaRepository<Client, Long> {
+    // consulta JPQL
+    @Query("SELECT c FROM Client c " + "WHERE" + "LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%')) AND "
+            + "LOWER(c.address) LIKE LOWER(CONCAT('%', :address, '%'))")
+    public Page<Client> find(Pageable pageRequest, String name, String address);
+
 }
-
-
-

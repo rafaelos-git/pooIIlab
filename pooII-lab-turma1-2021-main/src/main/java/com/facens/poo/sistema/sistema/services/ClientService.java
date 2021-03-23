@@ -26,8 +26,8 @@ public class ClientService {
     @Autowired
     private ClientRepository repo;
 
-    public Page<ClientDTO> getClients(PageRequest pageRequest) {
-        Page<Client> list = repo.find(pageRequest);
+    public Page<ClientDTO> getClients(PageRequest pageRequest, String name, String address) {
+        Page<Client> list = repo.find(pageRequest, name, address);
         return list.map(c -> new ClientDTO(c));
     }
 

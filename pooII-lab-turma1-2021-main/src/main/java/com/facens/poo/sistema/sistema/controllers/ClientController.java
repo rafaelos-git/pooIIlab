@@ -1,7 +1,6 @@
 package com.facens.poo.sistema.sistema.controllers;
 
 import java.net.URI;
-import java.util.List;
 import com.facens.poo.sistema.sistema.dto.ClientDTO;
 import com.facens.poo.sistema.sistema.dto.ClientInsertDTO;
 import com.facens.poo.sistema.sistema.dto.ClientUpdateDTO;
@@ -34,10 +33,12 @@ public class ClientController {
         @RequestParam(value = "page", defaultValue = "0") Integer page,
         @RequestParam(value = "linesPerPage", defaultValue = "6") Integer linesPerPage,
         @RequestParam(value = "direction", defaultValue = "ASC") String direction,
-        @RequestParam(value = "orderBy", defaultValue = "id") String orderBy
+        @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
+        @RequestParam(value = "name", defaultValue = "") String name,
+        @RequestParam(value = "address", defaultValue = "") String adress
     ){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
-        Page <ClientDTO> list = service.getClients(pageRequest);
+        Page <ClientDTO> list = service.getClients(pageRequest, name.trim(),adress.trim());
         return ResponseEntity.ok().body(list);
     }
 
